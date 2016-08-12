@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap-theme.min.css">
+    <script src="libs/jquery/jquery.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+      path#s1:hover{
+        fill: #123455;
+      }
+      .draggable{
+        /* cursor: move; */
+      }
+    </style>
+    <script>
+      $(document).ready(function(){
+        $("path#s1").click(function(){
+          alert('path#s1 click!');
+        });
+
+        //prevent parent element to scroll when mouse is hover above the svg
+        $('svg')[0].onmouseover = function(){
+          document.body.style.overflow='hidden';
+        };
+        $('svg')[0].onmouseout = function(){
+          document.body.style.overflow = 'auto';
+        };
+        //
+
+        $('svg')[0].addEventListener('mousewheel', function(e){
+          var deltaY = e.deltaY || 1;
+          var viewBoxValues = $('svg').attr('viewBox').split(/\s+|,/);
+          $('svg').attr('viewBox', viewBoxValues[0] + ' ' 
+                                + viewBoxValues[1] + ' ' 
+                                + (parseInt(viewBoxValues[2]) + 0.4*e.deltaY).toString() + ' ' 
+                                + (parseInt(viewBoxValues[3]) + 0.3*e.deltaY).toString());
+        }, false);
+      });
+    </script>
+  </head>
+  <body>
+    <div style="width: 800px; height: 600px;">
+    <svg viewBox="-100 -100 1920 1080" class="draggable">
+      <!--
+      <path id="s1" d="M300,200 h-150 a150,150 0 1,0 150,-150 z"
+      fill="red" stroke="blue" stroke-width="5"/>
+      <path id="s2" d="M275,175 v-150 a150,150 0 0,0 -150,150 z"
+      fill="yellow" stroke="blue" stroke-width="5"/>
+      <path id="s3" d="M600,350 l 50,-25 a25,25 -30 0,1 50,-25 l 50,-25 a25,50 -30 0,1 50,-25 l 50,-25 a25,75 -30 0,1 50,-25 l 50,-25 a25,100 -30 0,1 50,-25 l 50,-25"
+      fill="none" stroke="red" stroke-width="5"/>
+      -->
+      <path id="s1" 
+         d="m15.542935,393.53674 1.69992,275.3306 302.587675,-1.5381 0,-270.7162 -100.29591,0 0,-110.7475 c -70.23994,14.2212 -117.40349,47.3488 -115.59529,110.7475 z"
+         fill="none" stroke="black" stroke-width="2" />
+      <!--
+      <path
+         id="s2" fill="none" stroke="black" stroke-width="2"
+         d="m 13.843005,122.82064 0,269.178 88.396375,1.5381 c 9.39361,-74.6613 64.64006,-102.1707 118.99517,-107.6712 l 0,107.6712 100.29592,0 0,-267.6398 -100.29591,-1.5382 0,-110.747495 c -70.23996,14.2212 -117.40352,47.3488 -115.5953,110.747495 z" />
+      -->
+         <!--<text x="320" y="240" style="fill:blue" font-size="26">Target</text>-->
+    </svg></div>
+  </body>
+</html>
